@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+
+    <link rel="stylesheet" type="text/css" href="bulma.css">
+
+</head>
+
+<body>
+
+
+<div id='root'>
+
+    <message title="new title" body="my text body"></message>
+
+
+    <message title="another new title" body="my another text body"></message>
+
+</div>
+
+
+<script src="vendor/vue.js"></script>
+
+<script>
+
+
+    Vue.component('message', {
+
+        props: ['title', 'body'],
+
+        template: `
+
+			<article class="message" v-show="isVisible">
+			  <div class="message-header">
+			    <p>{{title}}</p>
+			    <button class="delete" aria-label="delete" @click="isVisible = false"></button>
+			    <button class="delete" aria-label="delete" @click="hidemodal"></button>
+			  </div>
+			  <div class="message-body">
+			    {{body}}
+			  </div>
+			</article>
+          `,
+
+        data() {
+            return {isVisible: true}
+        },
+        methods: {
+            hidemodal() {
+                this.isVisible = false;
+            }
+        }
+    });
+
+
+    var app = new Vue({
+        el: '#root'
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+
+
+<div id='app'>
+    <h1>The value of the input is {{message}}</h1>
+    <input v-model="message">
+</div>
+
+
+<script src="vendor/vuedev.js"></script>
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello World'
+        }
+    });
+
+
+</script>
+</body>
+</html>

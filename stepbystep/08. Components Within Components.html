@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+
+</head>
+
+<body>
+
+
+<div id='root'>
+
+
+    <task-list></task-list>
+
+
+</div>
+
+
+<script src="vendor/vue.js"></script>
+
+<script>
+
+    Vue.component('task-list', {
+        template: '<div><task v-for="task in tasks">{{task.description}}</task></div>',
+
+        data() {
+            return {
+                tasks: [
+                    {description: 'Go to the store', completed: true},
+                    {description: 'Go to the mall', completed: false},
+                    {description: 'Go to the church', completed: true},
+                    {description: 'Go to the shop', completed: true}
+                ]
+            };
+        }
+
+    });
+
+    Vue.component('task', {
+        template: '<li><slot></slot></li>'
+    });
+
+
+    var app = new Vue({
+        el: '#root'
+    });
+
+
+</script>
+</body>
+</html>

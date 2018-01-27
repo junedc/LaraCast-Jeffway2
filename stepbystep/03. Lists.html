@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+
+</head>
+
+<body>
+
+<div>
+    http://localhost:8888/HelloDatabinding.html
+</div>
+<div id='root'>
+    {{names}}
+    <div>
+        <ul>
+            <li v-for="name in names">{{name}}</li>
+        </ul>
+    </div>
+
+
+    <div> Using v-text
+        <ul>
+            <li v-for="name in names" v-text="name"></li>
+        </ul>
+    </div>
+
+    Add this name
+    <input type="text" v-model="newName"/>
+    <button>Add Name</button>
+
+</div>
+
+
+<script src="vendor/vuedev.js"></script>
+<script>
+
+    var app = new Vue({
+        el: '#root',
+        data: {
+            message: 'Hello World',
+            names: ['June', 'Joan', 'Leigh', 'Leonardo', 'Lelaine'],
+            newName: ''
+        },
+
+        mounted() {
+            //on ready
+            this.names.push(this.newName);
+        }
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+
+</head>
+
+<body>
+
+
+<div id='root'>
+
+
+    <task>Helo0</task>
+    <task>Hello1</task>
+    <task>Hello2</task>
+    <task>Hello3</task>
+
+
+</div>
+
+
+<script src="vendor/vue.js"></script>
+
+<script>
+
+    Vue.component('task', {
+        template: '<li><slot></slot></li>'
+    });
+
+    var app = new Vue({
+        el: '#root'
+    });
+
+
+</script>
+</body>
+</html>

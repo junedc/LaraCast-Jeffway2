@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+
+</head>
+
+<body>
+
+
+<div id='root'>
+    {{names}}
+    <div>
+        <ul>
+            <li v-for="name in names">{{name}}</li>
+        </ul>
+    </div>
+
+
+    <div> Using v-text
+        <ul>
+            <li v-for="name in names" v-text="name"></li>
+        </ul>
+    </div>
+
+    Add this name
+    <input type="text" v-model="newName"/>
+
+    <button v-on:click="addNewName">Add Name</button>
+
+
+    <button @click="addNewName">Button With Shortcut code</button>
+
+    <br><br>Add Letter on keyup
+    <input type="text" v-model="newName2" v-on:keyUp="oldSyntax"/>
+</div>
+
+
+<script src="vendor/vuedev.js"></script>
+<script>
+
+    var app = new Vue({
+        el: '#root',
+        data: {
+            message: 'Hello World',
+            names: ['June', 'Joan', 'Leigh', 'Leonardo', 'Lelaine'],
+            newName: '',
+            newName2: ''
+        },
+
+        mounted() {
+            //on ready
+            this.names.push(this.newName);
+        },
+
+        methods: {
+            addNewName() {
+                this.names.push(this.newName);
+                this.newName = '';
+            },
+            oldSyntax: function () {
+                // old function naming convention
+                this.names.push(this.newName2);
+                this.newName2 = '';
+            },
+        },
+    });
+
+
+</script>
+</body>
+</html>
