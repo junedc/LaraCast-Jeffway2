@@ -22,9 +22,9 @@
     <task>Hello3</task>
 
 
-     <taskxxxddd>Another Component But the component name is mispelled so formatting is not working</taskxxxddd>
+    <taskxxxddd>Another Component But the component name is mispelled so formatting is not working</taskxxxddd>
 
-       <task-xxx>Correctly formatted component</task-xxx>
+    <task-xxx>Correctly formatted component</task-xxx>
 </div>
 
 
@@ -35,16 +35,15 @@
     Vue.component('task', {
         template: '<li><slot> </slot> {{message2}}</li>',
 
-        //verty important to understand that for component 
+        //very important to understand that for component
         //we need to create data that returns a function
 
-        data() 
-            {
-                return {
-                    message1: 'Foobar',
-                    message2: 'Foobar2'
-                };
-            }
+        data() {
+            return {
+                message1: 'Foobar',
+                message2: 'Foobar2'
+            };
+        }
     });
 
 
@@ -54,13 +53,12 @@
         //verty important to understand that for component 
         //we need to create data that returns a function
 
-        data() 
-            {
-                return {
-                    
-                    message3: 'ccccc'
-                };
-            }
+        data() {
+            return {
+
+                message3: 'ccccc'
+            };
+        }
     });
 
     var app = new Vue({
