@@ -6,7 +6,7 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
-    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link rel="stylesheet" href="vendor/bulma.css?v=1.0">
 
 </head>
 
@@ -14,19 +14,49 @@
 
 
 <div id='app'>
-    <h1>The value of the input is {{message}}</h1>
-    <input v-model="message">
+    NAMED SLOTS by changing the modal of bulma framework
+
+    <modal>
+        <template slot="header">My Modal Title</template>
+        <div slot="content-slot">This is the content slot</div>
+    </modal>
 </div>
 
 
 <script src="vendor/vuedev.js"></script>
 <script>
 
+
+    Vue.component('modal', {
+
+        template: `
+
+            <div class="modal is-active">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">
+                           <slot name="header"></slot>
+                        </p>
+                        <button class="delete" aria-label="close"></button>
+                    </header>
+                    <section class="modal-card-body">
+                          <slot name="content-slot"></slot>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-success">Save changes</button>
+                        <button class="button">Cancel</button>
+                    </footer>
+                </div>
+            </div>
+            `
+        ,
+    });
+
+
     new Vue({
         el: '#app',
-        data: {
-            message: 'Hello World'
-        }
+        data: {}
     });
 
 
