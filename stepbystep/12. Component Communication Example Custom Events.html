@@ -6,7 +6,6 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
-    <link rel="stylesheet" href="css/styles.css?v=1.0">
 
 </head>
 
@@ -14,18 +13,57 @@
 
 
 <div id='app'>
-    <h1>The value of the input is {{message}}</h1>
-    <input v-model="message">
+
+    THIS IS A VERY GOOD EXAMPLE OF EMIT FROM A INNER COMPONENT CALLING AN GLOBAL METHOD or PARENT COMPONENT<BR>
+    Look inside the code @event-coupon-applied is an event declared implicitely. <br>
+    Inside the component the event was called by just issuing this.$emit('event-coupon-applied',this.txtcoupon); <br>
+    How about that, that is cool. <br>
+
+    <coupon @event-coupon-applied="globalMethodCouponApplied"></coupon>
+    <H1 v-if="couponwasused"> YOU USED A COUPON HELLO</H1>
 </div>
 
 
 <script src="vendor/vuedev.js"></script>
 <script>
 
+
+    Vue.component('coupon', {
+
+        template: `
+
+        <input v-model="txtcoupon" placeholder="Enter your coupon" @blur="localMethodCouponApplied"/>
+
+        `,
+
+        methods: {
+            localMethodCouponApplied() {
+                console.log('applying local method');
+                console.log('The value of the txtCoupon is also passed to the global method globalMethodCouponApplied')
+                this.$emit('event-coupon-applied', this.txtcoupon);
+            }
+        },
+
+        data() {
+            return {
+                txtcoupon: ''
+            }
+        },
+    });
+
+
     new Vue({
         el: '#app',
         data: {
-            message: 'Hello World'
+            couponwasused : false
+        },
+
+        methods: {
+            globalMethodCouponApplied(txtValue) {
+                alert('on coupon applied on ' + txtValue);
+                this.couponwasused = true;
+            },
+
         }
     });
 
