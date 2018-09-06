@@ -17,8 +17,10 @@
 
     Render all task
     <ul>
-        <li v-for="task in tasks" v-text="task.description">
+        <li v-for="task in tasks">
+            <a @click='completeMe(task)'>{{task.description}}</a>
         </li>
+
     </ul>
 
 
@@ -49,27 +51,35 @@
                 {description: 'Go to the store', completed: true},
                 {description: 'Go to the mall', completed: false},
                 {description: 'Go to the church', completed: true},
-                {description: 'Go to the shop', completed: true},
+                {description: 'Go to the shop', completed: false},
             ]
         },
-
-        methods: {},
+  
+      
         computed: {
 
             reverseMessage() {
+                //new syntax
                 return this.message.split('').reverse().join('');
             },
 
             incompleteTasks() {
-                return this.tasks.filter(task = > !task.completed
-            )
-                ;
+                //new syntax
+                return this.tasks.filter(task => !task.completed);
             },
 
             completeTasks() {
-                //return this.tasks.filter(function task) {
-                //return  true;
-                //}
+                //old syntax
+                return this.tasks.filter(function (task) {
+                    return   task.completed;
+                });
+            }
+        },
+
+        methods: {
+            completeMe(task) {
+                //alert('completing me');
+                task.completed = true;
             }
         }
 

@@ -14,6 +14,7 @@
 
 <div id='root'>
 
+    <div>Take note how we added a message variable in the template. Foobar2 is a variable</div>
 
     <task>Helo0</task>
     <task>Hello1</task>
@@ -21,6 +22,9 @@
     <task>Hello3</task>
 
 
+     <taskxxxddd>Another Component But the component name is mispelled so formatting is not working</taskxxxddd>
+
+       <task-xxx>Correctly formatted component</task-xxx>
 </div>
 
 
@@ -29,7 +33,34 @@
 <script>
 
     Vue.component('task', {
-        template: '<li><slot></slot></li>'
+        template: '<li><slot> </slot> {{message2}}</li>',
+
+        //verty important to understand that for component 
+        //we need to create data that returns a function
+
+        data() 
+            {
+                return {
+                    message1: 'Foobar',
+                    message2: 'Foobar2'
+                };
+            }
+    });
+
+
+    Vue.component('task-xxx', {
+        template: '<li><slot> </slot> {{message3}}</li>',
+
+        //verty important to understand that for component 
+        //we need to create data that returns a function
+
+        data() 
+            {
+                return {
+                    
+                    message3: 'ccccc'
+                };
+            }
     });
 
     var app = new Vue({

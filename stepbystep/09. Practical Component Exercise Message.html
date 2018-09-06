@@ -15,7 +15,7 @@
     <message title="new title" body="my text body"></message>
 
 
-    <message title="another new title" body="my another text body"></message>
+    <message title="another new title" body="Body is passed as property then assigned to a data variable which is AVAILABLE immediately"></message>
 
 </div>
 
@@ -38,13 +38,16 @@
 			    <button class="delete" aria-label="delete" @click="hidemodal"></button>
 			  </div>
 			  <div class="message-body">
-			    {{body}}
+			    {{myMessage}}
 			  </div>
 			</article>
           `,
 
         data() {
-            return {isVisible: true}
+            return {
+                isVisible: true,
+                myMessage: this.body
+            }
         },
         methods: {
             hidemodal() {
