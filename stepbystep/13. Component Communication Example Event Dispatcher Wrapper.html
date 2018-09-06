@@ -15,6 +15,7 @@
 <div id='app'>
 
     SIBLING COMPONENTS COMMUNICATIONS WHAAAAAAT ????<BR>
+    Created a wrapper for the event name<BR>
 
     <coupon></coupon>
 
@@ -25,26 +26,41 @@
 <script src="vendor/vuedev.js"></script>
 <script>
 
-    window.Event = new Vue();
+
+    //if u dont want a Event
+    window.Event = new class {
+        constructor() {
+            this.vue = new Vue();
+        }
+
+        fire(event, data = null) {
+            console.log('FIRE IS CALLED');
+            this.vue.$emit(event, data);
+        }
+
+        listen(event, callback) {
+            this.vue.$on(event, callback);
+        }
+    }
 
 
     Vue.component('coupon', {
 
         template: `
 
-
+         <div>
          <input placeholder="Enter your coupon code " @blur="localMethodCouponApplied" title="Calling a parent event ">
 
+         </div>
         `,
 
         methods: {
             localMethodCouponApplied() {
-                console.log('local method applied CALLING SIBLING EMITTER');
-                Event.$emit('thisIsMyEventName');
+                console.log('local method applied CALLING SIBLING WRAPPER EMITTER');
+                Event.fire('thisIsMyEventWrapperName');
+
 
             },
-
-
         }
     });
 
@@ -53,8 +69,8 @@
         data: {},
 
         created() {
-            Event.$on('thisIsMyEventName', () => alert('Handling global event!'));
 
+            Event.listen('thisIsMyEventWrapperName', () => alert('Handling global wrapper event!'));
         }
     });
 
