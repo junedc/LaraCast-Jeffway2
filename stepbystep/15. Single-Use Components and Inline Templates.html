@@ -6,26 +6,44 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
-    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link rel="stylesheet" href="vendor/bulma.css?v=1.0">
 
 </head>
 
 <body>
 
 
-<div id='app'>
-    <h1>The value of the input is {{message}}</h1>
-    <input v-model="message">
+<div id='app' class="container">
+
+    <progress-view inline-template>
+        <div>
+            <h1>Yor progress throug this course is {{completionRate}}%</h1>
+            <p>
+                <button @click="completionRate += 10">Update Completion Rate</button>
+            </p>
+        </div>
+    </progress-view>
 </div>
 
 
 <script src="vendor/vuedev.js"></script>
 <script>
 
+    Vue.component('progress-view',{
+
+        data(){
+            return {
+                completionRate : 50
+            }
+        }
+
+    });
+
+
     new Vue({
         el: '#app',
         data: {
-            message: 'Hello World'
+
         }
     });
 
