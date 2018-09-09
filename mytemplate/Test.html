@@ -1,0 +1,1159 @@
+<div id="spark-app" v-cloak="">
+
+    <div>
+        <!-- Navigation -->
+        <!-- NavBar For Authenticated Users 1-->
+        <spark-navbar :user="user" :teams="teams" :current-team="currentTeam"
+                      :unread-announcements-count="unreadAnnouncementsCount"
+                      :unread-notifications-count="unreadNotificationsCount" inline-template="">
+
+            <div>
+                <nav class="navbar navbar-light navbar-expand-md navbar-spark">
+                    <div class="container" v-if="user">
+                        <!-- Branding Image -->
+                        <a class="navbar-brand" href="/">
+                            <img src="/img/tsc-logo.jpeg" class="h-70">
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                            <ul class="navbar-nav mr-auto">
+                                <!-- Left Side Of Navbar -->
+                                <li class="nav-item" @click="activate(1)" :class="{ active : active_el == 1 }">
+                                    <a class="nav-link" href="/campaigns">Campaigns</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a @click="activate(2)" :class="{ active : active_el == 2 }" class="nav-link"
+                                       href="/brands">Brands</a>
+                                </li>
+                                <li class="nav-item" @click="activate(3)" :class="{ active : active_el == 3 }">
+                                    <a class="nav-link" href="/influencers">Influencers</a>
+                                </li>
+                            </ul>
+
+                            <a @click="" class="mb-3 mb-md-0 mr-md-0 ml-md-4">
+                                <el-badge :value="3" class="item">
+                                    <i class="el-icon-message"></i>
+                                </el-badge>
+                                Messages
+                            </a>
+
+                            <a @click="showNotifications" class="mb-3 mb-md-0 mr-md-0 ml-md-4">
+                                <el-badge :value="notificationsCount" class="item">
+                                    <i class="el-icon-bell"></i>
+                                </el-badge>
+                                Notifications
+                            </a>
+
+                            <ul class="navbar-nav ml-4">
+                                <li class="dropdown">
+                                    <a href="#" class="d-block d-md-flex text-center nav-link dropdown-toggle"
+                                       id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false">
+                            <span class="d-none d-md-block">
+                              <i class="el-icon-setting"></i>
+                              Settings
+                            </span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                        <!-- Impersonation -->
+
+                                        <!-- Developer -->
+                                        <h6 class="dropdown-header">Developer</h6>
+
+                                        <!-- Kiosk -->
+                                        <a class="dropdown-item" href="/spark/kiosk">
+                                            <i class="fa fa-fw text-left fa-btn fa-fort-awesome"></i> Kiosk
+                                        </a>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <!-- Subscription Reminders -->
+
+                                        <!-- Settings -->
+                                        <h6 class="dropdown-header">Settings</h6>
+
+                                        <!-- Your Settings -->
+                                        <a class="dropdown-item" href="/settings">
+                                            <i class="fa fa-fw text-left fa-btn fa-cog"></i> Your Settings
+                                        </a>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <!-- Team Settings -->
+                                        <!-- Teams -->
+                                        <h6 class="dropdown-header"> Teams</h6>
+
+                                        <!-- Create Team -->
+                                        <a class="dropdown-item" href="/settings#/teams">
+                                            <i class="fa fa-fw text-left fa-btn fa-plus-circle"></i> Create Team
+                                        </a>
+
+                                        <!-- Switch Current Team -->
+                                        <a class="dropdown-item" v-for="team in teams"
+                                           :href="'/settings/teams/'+ team.id +'/switch'">
+        <span v-if="user.current_team_id == team.id">
+            <i class="fa fa-fw text-left fa-btn fa-check text-success"></i> {{ team.name }}
+        </span>
+
+                                            <span v-else="">
+            <img :src="team.photo_url" class="spark-profile-photo-xs"><i class="fa fa-btn"></i> {{ team.name }}
+        </span>
+                                        </a>
+
+                                        <div class="dropdown-divider"></div>
+
+
+                                        <!-- Logout -->
+                                        <a class="dropdown-item" href="/logout">
+                                            <i class="fa fa-fw text-left fa-btn fa-sign-out"></i> Logout
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+        </spark-navbar>
+
+        <!-- Main Content 1-->
+        <main class="">
+            <div>
+                <div class="page-header">
+                    <div class="page-header__inner container">
+                        <div class="page-header__content">
+                            <div class="back">
+                                <a href="/campaigns" class="ft-15">
+                                    &lt; Back to Campaigns Overview
+                                </a>
+                            </div>
+                            <div class="d-inline">
+                                <h1>Create a Campaign</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <!-- Campaign View -->
+                    <create-campaign-wizard :user="user"
+                                            :campaign="{&quot;id&quot;:3,&quot;user_id&quot;:3,&quot;managed_by_id&quot;:null,&quot;title&quot;:&quot;as as. asdfs&quot;,&quot;description&quot;:null,&quot;hero&quot;:null,&quot;accept_terms&quot;:&quot;0&quot;,&quot;product_provided&quot;:null,&quot;provided_product_description&quot;:null,&quot;provided_product_rrp&quot;:null,&quot;target_location&quot;:&quot;&quot;,&quot;target_age_lower&quot;:null,&quot;target_age_upper&quot;:null,&quot;target_gender_m&quot;:null,&quot;target_gender_f&quot;:null,&quot;specific_location&quot;:null,&quot;specific_location_region&quot;:null,&quot;specific_location_date&quot;:null,&quot;specific_location_start_time&quot;:null,&quot;specific_location_end_time&quot;:null,&quot;post_time_required&quot;:0,&quot;post_time&quot;:null,&quot;notification&quot;:0,&quot;asa_hashtag&quot;:null,&quot;copy_hashtags&quot;:null,&quot;copy_usernames&quot;:null,&quot;copy_links&quot;:null,&quot;access_required&quot;:0,&quot;access_period&quot;:null,&quot;access_level&quot;:null,&quot;access_attribution&quot;:0,&quot;access_spend&quot;:0,&quot;exclusivity_required&quot;:0,&quot;exclusivity_period&quot;:null,&quot;exclusivity_categories&quot;:null,&quot;offers_due_by&quot;:null,&quot;remove_post&quot;:null,&quot;remove_date&quot;:null,&quot;est_budget&quot;:null,&quot;campaign_report&quot;:null,&quot;last_wizard_step&quot;:1,&quot;max_wizard_step&quot;:0,&quot;status&quot;:&quot;Draft&quot;,&quot;created_at&quot;:&quot;2018-09-03 21:40:33&quot;,&quot;updated_at&quot;:&quot;2018-09-05 04:31:24&quot;,&quot;deleted_at&quot;:null}"
+                                            inline-template="">
+                        <div>
+                            <template v-if="campaign.status == 'Draft' || campaign.status == 'Live'">
+                                <div>
+                                    <!-- Header -->
+                                    <div class="campaign-header hidden-xs">
+                                        <div class="campaign-header__inner">
+                                            <div class="campaign-header__nav">
+                                                <ul>
+                                                    <li :class="{active: active == 0}">
+                                                        <a>
+                                                            <span class="wizard-text">1. Campaign Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li :class="{active: active == 1}">
+                                                        <a>
+                                                            <span class="wizard-text">2. Influencer Brief</span>
+                                                        </a>
+                                                    </li>
+                                                    <li :class="{active: active == 2}">
+                                                        <a>
+                                                            <span class="wizard-text">3. Influencers</span>
+                                                        </a>
+                                                    </li>
+                                                    <li :class="{active: active == 3}">
+                                                        <a>
+                                                            <span class="wizard-text">4. Post Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li :class="{active: active == 4}">
+                                                        <a>
+                                                            <span class="wizard-text">5. Confirm</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <transition :name="screenTransition" mode="out-in">
+                                        <template v-if="active == 0">
+                                            <create-campaign-initialize :user="user" :campaign="campaign" ref="state"
+                                                                        inline-template="">
+                                                <div>
+                                                    <form>
+                                                        <div class="page-content page-content--has-footer page-content--has-subnav">
+                                                            <div class="page-content__inner">
+                                                                <div class="page-content__panel">
+
+                                                                    <!--  <h4 v-if="campaignLocked" class="form-section-heading text-center">
+                                                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                                                        Campaign editing locked, except for adding new Influencers
+                                                                      </h4>-->
+                                                                    <!-- Get Started -->
+                                                                    <h2 class="h2-pink">Get started</h2>
+                                                                    <div class="row page-content__inner__block">
+                                                                        <!-- Campaign Name -->
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Campaign
+                                                                                    name</h3>
+                                                                                <small>Get Influencers Attention</small>
+                                                                                <el-input placeholder="Campaign Name"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="campaign.title"
+                                                                                          :class="{'is-invalid': form.errors.has('title')}"
+                                                                                          clearable=""></el-input>
+                                                                                <span class="invalid-feedback"
+                                                                                      v-show="form.errors.has('title')">
+                              {{ form.errors.get('title') }}
+                          </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Campaign Image -->
+                                                                        <div class="col-md-2 offset-md-1">
+                                                                            <el-upload
+                                                                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                                                                    list-type="picture-card"
+                                                                                    :on-preview="handlePictureCardPreview"
+                                                                                    :on-remove="handleRemove">
+                                                                                <i class="el-icon-plus"></i>
+                                                                            </el-upload>
+                                                                            s
+                                                                            <el-dialog
+                                                                                    :visible.sync="form.dialogVisible">
+                                                                                <img width="100%"
+                                                                                     :src="form.dialogImageUrl" alt="">
+                                                                            </el-dialog>
+                                                                        </div>
+                                                                        <div class="col-md-3 padding-top-lg">
+                                                                            <a class="link" href="#">
+                                                                                <small>Change campaign hero image
+                                                                                </small>
+                                                                            </a>
+                                                                            <br>
+                                                                            <small>This is the thumbnail image
+                                                                                influencers will see when they’re
+                                                                                looking at the campaign brief.
+                                                                            </small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Campaign Budget -->
+                                                                    <div class="row page-content__inner__block">
+                                                                        <div class="col-md-4">
+                                                                            <h3 class="no-padding">Campaign budget</h3>
+                                                                            <small>What’s the budget for this campaign?
+                                                                                ($NZD)
+                                                                            </small>
+                                                                            <el-input placeholder="$"
+                                                                                      class="margin-top-sm"
+                                                                                      v-model="campaign.est_budget"
+                                                                                      :class="{'is-invalid': form.errors.has('est_budget')}"
+                                                                                      clearable=""></el-input>
+                                                                            <span class="invalid-feedback"
+                                                                                  v-show="form.errors.has('est_budget')">
+                                {{ form.errors.get('est_budget') }}
+                            </span>
+                                                                        </div>
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <h3 class="no-padding">Campaign manager</h3>
+                                                                            <small>Assign a TSC team member responsible
+                                                                                for this campaign.
+                                                                            </small>
+                                                                            <el-select class="margin-top-sm"
+                                                                                       v-model="form.team_member"
+                                                                                       placeholder=""
+                                                                                       :class="{'is-invalid': form.errors.has('managed_by_id')}">
+                                                                                <el-option v-model="form.team_member">
+                                                                                </el-option>
+                                                                            </el-select>
+                                                                            <span class="invalid-feedback"
+                                                                                  v-show="form.errors.has('managed_by_id')">
+                                {{ form.errors.get('managed_by_id') }}
+                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Start date -->
+                                                                    <div class="row page-content__inner__block">
+                                                                        <div class="col-md-4">
+                                                                            <h3 class="no-padding">Campaign start
+                                                                                date</h3>
+                                                                            <small>When will this campaign begin?
+                                                                            </small>
+                                                                            <el-date-picker class="margin-top-sm"
+                                                                                            v-model="form.start_date"
+                                                                                            type="date" placeholder="">
+                                                                            </el-date-picker>
+                                                                        </div>
+                                                                        <!-- End date -->
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <h3 class="no-padding">Campaign end
+                                                                                date</h3>
+                                                                            <small>When will this campaign end?</small>
+                                                                            <el-date-picker class="margin-top-sm"
+                                                                                            v-model="form.end_date"
+                                                                                            type="date" placeholder="">
+                                                                            </el-date-picker>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- What's Included -->
+                                                                    <h2 class="h2-pink">What’s included?</h2>
+                                                                    <!-- Event appearance -->
+                                                                    <div class="row page-content__inner__block">
+                                                                        <div class="col-md-4">
+                                                                            <h3 class="no-padding">Event appearance</h3>
+                                                                            <small>Are influencers required to attend an
+                                                                                event?
+                                                                            </small>
+                                                                            <br>
+                                                                            <el-radio-group class="margin-top-sm"
+                                                                                            v-model="form.event_appearance">
+                                                                                <el-radio :label="0">No</el-radio>
+                                                                                <br>
+                                                                                <el-radio :label="1">Yes</el-radio>
+                                                                            </el-radio-group>
+                                                                            <transition name="wizard-anim-form-el">
+                                                                                <div v-show="form.event_appearance">
+                                                                                    <div class="padding-top">
+                                                                                        <small>Event date</small>
+                                                                                        <br>
+                                                                                        <el-date-picker
+                                                                                                class="margin-top-sm"
+                                                                                                v-model="form.event_date"
+                                                                                                type="date"
+                                                                                                placeholder=""></el-date-picker>
+                                                                                    </div>
+                                                                                    <div class="padding-top">
+                                                                                        <small>Event start time</small>
+                                                                                        <br>
+                                                                                        <el-time-select
+                                                                                                v-model="form.specific_time"
+                                                                                                placeholder=""></el-time-select>
+                                                                                    </div>
+                                                                                    <div class="padding-top">
+                                                                                        <small>Provide a brief outline
+                                                                                            of the event, what’s
+                                                                                            required from the influencer
+                                                                                            and the start time.
+                                                                                        </small>
+                                                                                        <br>
+                                                                                        <el-input placeholder=""
+                                                                                                  v-model="form.input"
+                                                                                                  type="textarea"
+                                                                                                  rows="5"
+                                                                                                  resize="none"></el-input>
+                                                                                    </div>
+                                                                                    <div class="padding-top">
+                                                                                        <a class="link" href="#">+ Add
+                                                                                            another event</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </transition>
+                                                                        </div>
+                                                                        <!-- Campaign product/service -->
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <h3 class="no-padding">Campaign
+                                                                                product/service</h3>
+                                                                            <small>Will influencers be provided with
+                                                                                product and/or services?
+                                                                            </small>
+                                                                            <el-radio-group class="margin-top-sm"
+                                                                                            v-model="form.product_provided">
+                                                                                <el-radio :label="0">No</el-radio>
+                                                                                <br>
+                                                                                <el-radio :label="1">Yes</el-radio>
+                                                                            </el-radio-group>
+                                                                            <transition name="wizard-anim-form-el">
+                                                                                <div v-show="form.product_provided">
+                                                                                    <div class="padding-top">
+                                                                                        <small>Provide a brief outline
+                                                                                            of the product(s) and/or
+                                                                                            service(s) and what’s
+                                                                                            required from the
+                                                                                            influencer.
+                                                                                        </small>
+                                                                                        <br>
+                                                                                        <el-input placeholder=""
+                                                                                                  v-model="form.provided_product_description"
+                                                                                                  type="textarea"
+                                                                                                  rows="5"
+                                                                                                  resize="none"></el-input>
+                                                                                    </div>
+                                                                                    <div class="padding-top">
+                                                                                        <small>Please indicate the value
+                                                                                            of the product/service (RRP
+                                                                                            $NZD)
+                                                                                        </small>
+                                                                                        <br>
+                                                                                        <el-input placeholder="eg. $200"
+                                                                                                  class="margin-top-sm"
+                                                                                                  v-model="form.provided_product_rrp"
+                                                                                                  :class="{'is-invalid': form.errors.has('title')}"
+                                                                                                  clearable=""></el-input>
+                                                                                    </div>
+                                                                                    <div class="padding-top">
+                                                                                        <small>If the influencer will be
+                                                                                            sent a product, please
+                                                                                            indicate the date it will be
+                                                                                            sent by.
+                                                                                        </small>
+                                                                                        <br>
+                                                                                        <el-date-picker
+                                                                                                class="margin-top-sm"
+                                                                                                v-model="form.provided_product_send_date"
+                                                                                                type="date"
+                                                                                                placeholder=""></el-date-picker>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </transition>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Content Requirements -->
+                                                                    <h2 class="h2-pink">Content requirements</h2>
+                                                                    <!-- Industry exclusivity -->
+                                                                    <div class="row page-content__inner__block">
+                                                                        <div class="col-md-4">
+                                                                            <h3 class="no-padding">Industry
+                                                                                exclusivity</h3>
+                                                                            <small>Is industry exclusivity required for
+                                                                                the duration of the campaign?
+                                                                            </small>
+                                                                            <el-radio-group class="margin-top-sm"
+                                                                                            v-model="form.exclusivity_required">
+                                                                                <el-radio :label="0">No</el-radio>
+                                                                                <br>
+                                                                                <el-radio :label="1">Yes</el-radio>
+                                                                            </el-radio-group>
+                                                                            <transition name="wizard-anim-form-el">
+                                                                                <div v-show="form.exclusivity_required">
+                                                                                    <div class="padding-top">
+                                                                                        <small>Please include any
+                                                                                            further notes regarding
+                                                                                            exclusivity if necessary
+                                                                                        </small>
+                                                                                        <br>
+                                                                                        <el-input placeholder=""
+                                                                                                  v-model="form.exclusivity_note"
+                                                                                                  type="textarea"
+                                                                                                  rows="5"
+                                                                                                  resize="none"></el-input>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </transition>
+                                                                        </div>
+                                                                        <!-- Campaign product/service -->
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <h3 class="no-padding">Content live
+                                                                                time</h3>
+                                                                            <small>How long is the content required to
+                                                                                stay live on the influencers’ accounts
+                                                                                for?
+                                                                            </small>
+                                                                            <el-checkbox-group class="margin-top-sm"
+                                                                                               v-model="form.checkList">
+                                                                                <el-checkbox
+                                                                                        label="1 month"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="3 months"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="6 months"></el-checkbox>
+                                                                            </el-checkbox-group>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Content Ownership -->
+                                                                    <h2 class="h2-pink">Content ownership</h2>
+                                                                    <!-- Platforms -->
+                                                                    <div class="row page-content__inner__block">
+                                                                        <div class="col-md-4">
+                                                                            <h3 class="no-padding">Platforms</h3>
+                                                                            <small>Which platforms will the content be
+                                                                                used across?
+                                                                            </small>
+                                                                            <el-checkbox-group class="margin-top-sm"
+                                                                                               v-model="form.checkList1">
+                                                                                <el-checkbox
+                                                                                        label="Digital"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="Social"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox label="TV"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="Out of home"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="Other"></el-checkbox>
+                                                                            </el-checkbox-group>
+                                                                        </div>
+                                                                        <!-- Duration -->
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <h3 class="no-padding">Duration</h3>
+                                                                            <small>How long is access to the content
+                                                                                required?
+                                                                            </small>
+                                                                            <el-checkbox-group class="margin-top-sm"
+                                                                                               v-model="form.checkList2">
+                                                                                <el-checkbox
+                                                                                        label="1 month"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="3 months"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="6 months"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="12 months"></el-checkbox>
+                                                                                <br>
+                                                                                <el-checkbox
+                                                                                        label="Other"></el-checkbox>
+                                                                            </el-checkbox-group>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Attribution -->
+                                                                    <div class="row page-content__inner__block">
+                                                                        <div class="col-md-4">
+                                                                            <h3 class="no-padding">Attribution</h3>
+                                                                            <small>Will the influencer be attributed?
+                                                                            </small>
+                                                                            <br>
+                                                                            <el-radio-group class="margin-top-sm"
+                                                                                            v-model="form.attribution">
+                                                                                <el-radio :label="3">No</el-radio>
+                                                                                <br>
+                                                                                <el-radio :label="6">Yes</el-radio>
+                                                                            </el-radio-group>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="page-footer">
+                                                            <div class="page-footer__inner">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 page-footer__inner__error">
+                                                                        <div class="text-error"
+                                                                             v-show="form.errors.has('campaign_description')">
+                                                                            <p>
+                                                                                {{form.errors.get('campaign_description')}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-center">
+                                                                        <a class="btn btn-padding link-inverse"
+                                                                           @click="saveLeave('form')">Save draft &amp;
+                                                                            exit</a>
+                                                                        <button class="btn btn-padding btn-primary"
+                                                                                v-popover:nexthover=""
+                                                                                @click="next('form')">Next step
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </create-campaign-initialize>
+                                        </template>
+                                        <template v-if="active == 1">
+                                            <create-campaign-brief :user="user" :campaign="campaign" ref="state"
+                                                                   inline-template="">
+                                                <div>
+                                                    <form ref="form">
+                                                        <div class="page-content page-content--has-footer page-content--has-subnav">
+                                                            <div class="page-content__inner">
+                                                                <div class="page-content__panel">
+                                                                    <h2 class="h2-pink">Brief</h2>
+                                                                    <div class="row page-content__inner__block">
+                                                                        <!-- Influencer Brief -->
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Brief for
+                                                                                    influencer(s)</h3>
+                                                                                <small>Briefly explain what’s being
+                                                                                    promoted and the campaign
+                                                                                    objectives.
+                                                                                </small>
+                                                                                <el-input placeholder=""
+                                                                                          v-model="form.description"
+                                                                                          type="textarea" rows="10"
+                                                                                          resize="none"></el-input>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row page-content__inner__block">
+                                                                        <!-- Content Guidelines -->
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Content
+                                                                                    guidelines</h3>
+                                                                                <small>Specify any rules/preferences for
+                                                                                    the campaign content.
+                                                                                </small>
+                                                                                <el-input
+                                                                                        placeholder="eg. Include full product in photo"
+                                                                                        class="margin-top-sm"
+                                                                                        v-model="form.campaign_messages"
+                                                                                        clearable=""></el-input>
+                                                                                <p class="pull-right padding-top">
+                                                                                    <a href=""
+                                                                                       class="btn btn-sm btn-sm-padding btn-default"
+                                                                                       @click.prevent="addCampaignMessage()">Add
+                                                                                        guideline</a>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row page-content__inner__block">
+                                                                        <!-- Platforms / Visual Inspiration -->
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Platforms</h3>
+                                                                                <small>Select the platform(s) the
+                                                                                    campaign will run on.
+                                                                                </small>
+                                                                                <el-checkbox-group class="margin-top-sm"
+                                                                                                   v-model="form.checkList">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-5">
+                                                                                            <el-checkbox
+                                                                                                    label="Instagram"></el-checkbox>
+                                                                                            <br>
+                                                                                            <el-checkbox
+                                                                                                    label="Facebook"></el-checkbox>
+                                                                                            <br>
+                                                                                            <el-checkbox
+                                                                                                    label="Twitter"></el-checkbox>
+                                                                                        </div>
+                                                                                        <div class="col-md-5">
+                                                                                            <el-checkbox
+                                                                                                    label="Snapchat"></el-checkbox>
+                                                                                            <br>
+                                                                                            <el-checkbox
+                                                                                                    label="Youtube"></el-checkbox>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </el-checkbox-group>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Visual
+                                                                                    inspiration</h3>
+                                                                                <small>Upload any imagery or video
+                                                                                    references as inspiration/examples
+                                                                                    for the campaign.
+                                                                                </small>
+                                                                                <div class="padding-top">
+                                                                                    <button class="btn btn-sm btn-inverse btn-padding">
+                                                                                        + Upload image(s)
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="padding-top">
+                                                                                    <button class="btn btn-sm btn-inverse btn-padding">
+                                                                                        + Upload video(s)
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h2 class="h2-pink">Brand Social Accounts</h2>
+                                                                    <div class="row page-content__inner__block">
+                                                                        <!-- Social Accounts -->
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <small>Add links to your brand’s social
+                                                                                    accounts so influencers can see who
+                                                                                    you are and the type of content you
+                                                                                    currently have.
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Instagram</h3>
+                                                                                <el-input placeholder="@Instagram"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.campaign_messages"
+                                                                                          clearable=""></el-input>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Facebook</h3>
+                                                                                <el-input placeholder="Facebook"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.campaign_messages"
+                                                                                          clearable=""></el-input>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Twitter</h3>
+                                                                                <el-input placeholder="Twitter"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.campaign_messages"
+                                                                                          clearable=""></el-input>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h2 class="h2-pink">Brand mentions</h2>
+                                                                    <div class="row page-content__inner__block">
+                                                                        <!-- Social Handles -->
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">User handles</h3>
+                                                                                <small>Specify any user handle(s) to be
+                                                                                    tagged in the campaign content.
+                                                                                </small>
+                                                                                <el-input placeholder="@"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.handles"
+                                                                                          clearable=""></el-input>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Mandatory
+                                                                                    hashtags</h3>
+                                                                                <small>Specify any user handle(s) to be
+                                                                                    tagged in the campaign content.
+                                                                                </small>
+                                                                                <el-input placeholder="#"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.madatory_hashtags"
+                                                                                          clearable=""></el-input>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Other
+                                                                                    hashtags</h3>
+                                                                                <small>Specify any user handle(s) to be
+                                                                                    tagged in the campaign content.
+                                                                                </small>
+                                                                                <el-input placeholder="#"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.hashtags"
+                                                                                          clearable=""></el-input>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 offset-md-1">
+                                                                            <div class="form-group">
+                                                                                <h3 class="no-padding">Links</h3>
+                                                                                <small>Specify any website links to be
+                                                                                    included and where they should
+                                                                                    appear.
+                                                                                </small>
+                                                                                <el-input placeholder="http://"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.campaign_messages"
+                                                                                          clearable=""></el-input>
+                                                                                <br>
+                                                                                <el-input placeholder="Link location"
+                                                                                          class="margin-top-sm"
+                                                                                          v-model="form.campaign_messages"
+                                                                                          clearable=""></el-input>
+                                                                                <p class="pull-right padding-top">
+                                                                                    <a href=""
+                                                                                       class="btn btn-sm btn-sm-padding btn-default"
+                                                                                       @click.prevent="addCampaignMessage()">Add
+                                                                                        link</a>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="page-footer">
+                                                                <div class="page-footer__inner">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 page-footer__inner__error">
+                                                                            <div class="text-error"
+                                                                                 v-show="form.errors.has('campaign_description')">
+                                                                                <p>
+                                                                                    {{form.errors.get('campaign_description')}}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 text-center">
+                                                                            <a class="btn btn-padding link-inverse"
+                                                                               @click="back()">Back</a>
+                                                                            <button class="btn btn-padding btn-primary"
+                                                                                    v-popover:nexthover=""
+                                                                                    @click="next('form')">Next step
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </create-campaign-brief>
+                                        </template>
+                                        <template v-if="active == 2">
+                                            <create-campaign-influencers :user="user" :campaign="campaign" ref="state"
+                                                                         inline-template="">
+                                                <div>
+                                                    <form ref="form">
+                                                        <div class="page-content page-content--has-footer page-content--has-subnav">
+                                                            <div class="page-content__inner">
+                                                                <div class="page-content__panel">
+                                                                    <h2 class="h2-pink">Shortlist your influencers</h2>
+                                                                    <div class="row page-content__inner__block">
+                                                                        <!-- Shortlist Influencers -->
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <small>Shortlist influencers for this
+                                                                                    campaign –&nbsp;invite them to be
+                                                                                    involved and they can accept,
+                                                                                    negotiate the price, or decline
+                                                                                    based on their preference.
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <influencer-list :user="user"
+                                                                                                 :will-populate="true"
+                                                                                                 :campaign="campaign"
+                                                                                                 inline-template="">
+                                                                                    <div class="row row-margin"
+                                                                                         v-loading="">
+                                                                                        <div class="tile item col-xs-12 col-sm-6 col-md-4 col-lg-3"
+                                                                                             v-for="(influencer, index) in influencers">
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row marginbottom load-button"
+                                                                                         v-if="after">
+                                                                                        <div class="col-xs-12 padding-top text-center">
+                                                                                            <a class="btn btn-primary"
+                                                                                               @click="loadMore(false)">Load
+                                                                                                more</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </influencer-list>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="page-footer">
+                                                            <div class="page-footer__inner">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 page-footer__inner__error">
+                                                                        <div class="text-error"
+                                                                             v-show="form.errors.has('campaign_description')">
+                                                                            <p>
+                                                                                {{form.errors.get('campaign_description')}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-center">
+                                                                        <a class="btn btn-padding link-inverse"
+                                                                           @click="back()">Back</a>
+                                                                        <button class="btn btn-padding btn-primary"
+                                                                                v-popover:nexthover=""
+                                                                                @click="next('form')">Next step
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </create-campaign-influencers>
+                                        </template>
+                                        <template v-if="active == 3">
+                                            <create-campaign-details :user="user" :campaign="campaign" ref="state"
+                                                                     inline-template="">
+                                                <div>
+                                                    <form ref="form">
+                                                        <div class="page-content page-content--has-footer page-content--has-subnav">
+                                                            <div class="page-content__inner">
+                                                                <div class="page-content__panel">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="page-footer">
+                                                            <div class="page-footer__inner">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 page-footer__inner__error">
+                                                                        <div class="text-error"
+                                                                             v-show="form.errors.has('campaign_description')">
+                                                                            <p>
+                                                                                {{form.errors.get('campaign_description')}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-center">
+                                                                        <a class="btn btn-padding link-inverse"
+                                                                           @click="back()">Back</a>
+                                                                        <button class="btn btn-padding btn-primary"
+                                                                                v-popover:nexthover=""
+                                                                                @click="next('form')">Next step
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </create-campaign-details>
+                                        </template>
+                                        <template v-if="active == 4">
+                                            <create-campaign-confirm :user="user" :campaign="campaign" ref="state"
+                                                                     inline-template="">
+                                                <div>
+                                                    <form ref="form">
+                                                        <div class="page-content page-content--has-footer page-content--has-subnav">
+                                                            <div class="page-content__inner">
+                                                                <div class="page-content__panel">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="page-footer">
+                                                            <div class="page-footer__inner">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 page-footer__inner__error">
+                                                                        <div class="text-error"
+                                                                             v-show="form.errors.has('campaign_description')">
+                                                                            <p>
+                                                                                {{form.errors.get('campaign_description')}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-center">
+                                                                        <a class="btn btn-padding link-inverse"
+                                                                           @click="saveLeave('form')">Save draft &amp;
+                                                                            exit</a>
+                                                                        <button class="btn btn-padding btn-primary"
+                                                                                v-popover:nexthover=""
+                                                                                @click="next('form')">Next step
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </create-campaign-confirm>
+                                        </template>
+                                    </transition>
+                                </div>
+                            </template>
+                        </div>
+                    </create-campaign-wizard>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Application Level Modals -->
+        <!-- Notifications Modal -->
+        <spark-notifications :notifications="notifications" :has-unread-announcements="hasUnreadAnnouncements"
+                             :loading-notifications="loadingNotifications" inline-template="">
+
+            <div>
+                <div class="modal docked docked-right" id="modal-notifications" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <div class="btn-group">
+                                    <button class="btn btn-light" :class="{'active': showingNotifications}"
+                                            @click="showNotifications" style="width: 50%;">
+                                        Notifications
+                                    </button>
+
+                                    <button class="btn btn-light" :class="{'active': showingAnnouncements}"
+                                            @click="showAnnouncements" style="width: 50%;">
+                                        Announcements <i class="fa fa-circle text-danger p-l-xs"
+                                                         v-if="hasUnreadAnnouncements"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <!-- Informational Messages -->
+                                <div class="notification-container" v-if="loadingNotifications">
+                                    <i class="fa fa-btn fa-spinner fa-spin"></i> Loading Notifications
+                                </div>
+
+                                <div class="notification-container"
+                                     v-if=" ! loadingNotifications &amp;&amp; activeNotifications.length == 0">
+                                    <div class="alert alert-warning m-b-none">
+                                        We don't have anything to show you right now! But when we do, we'll be sure to
+                                        let you know. Talk to you soon!
+                                    </div>
+                                </div>
+
+                                <!-- List Of Notifications -->
+                                <div class="notification-container"
+                                     v-if="showingNotifications &amp;&amp; hasNotifications">
+                                    <div class="notification" v-for="notification in notifications.notifications">
+
+                                        <!-- Notification Icon -->
+                                        <figure>
+                                            <img v-if="notification.creator" :src="notification.creator.photo_url"
+                                                 class="spark-profile-photo">
+
+                                            <span v-else="" class="fa-stack fa-2x">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i :class="['fa', 'fa-stack-1x', 'fa-inverse', notification.icon]"></i>
+                                    </span>
+                                        </figure>
+
+                                        <!-- Notification -->
+                                        <div class="notification-content">
+                                            <div class="meta">
+                                                <p class="title">
+                                            <span v-if="notification.creator">
+                                                {{ notification.creator.name }}
+                                            </span>
+
+                                                    <span v-else="">
+                                                Your Product
+                                            </span>
+                                                </p>
+
+                                                <div class="date">
+                                                    {{ notification.created_at | relative }}
+                                                </div>
+                                            </div>
+
+                                            <div class="notification-body" v-html="notification.parsed_body"></div>
+
+                                            <!-- Notification Action -->
+                                            <a :href="notification.action_url" class="btn btn-primary"
+                                               v-if="notification.action_text">
+                                                {{ notification.action_text }}
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- List Of Announcements -->
+                                <div class="notification-container"
+                                     v-if="showingAnnouncements &amp;&amp; hasAnnouncements">
+                                    <div class="notification" v-for="announcement in notifications.announcements">
+
+                                        <!-- Notification Icon -->
+                                        <figure>
+                                            <img :src="announcement.creator.photo_url" class="spark-profile-photo">
+                                        </figure>
+
+                                        <!-- Announcement -->
+                                        <div class="notification-content">
+                                            <div class="meta">
+                                                <p class="title">{{ announcement.creator.name }}</p>
+
+                                                <div class="date">
+                                                    {{ announcement.created_at | relative }}
+                                                </div>
+                                            </div>
+
+                                            <div class="notification-body" v-html="announcement.parsed_body"></div>
+
+                                            <!-- Announcement Action -->
+                                            <a :href="announcement.action_url" class="btn btn-primary"
+                                               v-if="announcement.action_text">
+                                                {{ announcement.action_text }}
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Actions -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </spark-notifications>
+        <!-- Customer Support -->
+        <div class="modal fade" id="modal-support" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-b-none">
+                        <form role="form">
+                            <!-- From -->
+                            <div class="form-group" :class="{'is-invalid': supportForm.errors.has('from')}">
+                                <input id="support-from" type="text" class="form-control" v-model="supportForm.from"
+                                       placeholder="Your Email Address">
+
+                                <span class="invalid-feedback" v-show="supportForm.errors.has('from')">
+                            {{ supportForm.errors.get('from') }}
+                        </span>
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="form-group" :class="{'is-invalid': supportForm.errors.has('subject')}">
+                                <input id="support-subject" type="text" class="form-control"
+                                       v-model="supportForm.subject" placeholder="Subject">
+
+                                <span class="invalid-feedback" v-show="supportForm.errors.has('subject')">
+                            {{ supportForm.errors.get('subject') }}
+                        </span>
+                            </div>
+
+                            <!-- Message -->
+                            <div class="form-group m-b-none" :class="{'is-invalid': supportForm.errors.has('message')}">
+                                <textarea class="form-control" rows="7" v-model="supportForm.message"
+                                          placeholder="Message"></textarea>
+
+                                <span class="invalid-feedback" v-show="supportForm.errors.has('message')">
+                            {{ supportForm.errors.get('message') }}
+                        </span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal Actions -->
+                    <div class="modal-footer border-none">
+                        <button type="button" class="btn btn-primary" @click.prevent="sendSupportRequest"
+                                :disabled="supportForm.busy">
+                            <i class="fa fa-btn fa-paper-plane"></i> Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Session Expired Modal -->
+        <div class="modal fade" id="modal-session-expired" tabindex="-1" role="dialog" data-backdrop="static"
+             data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            Session Expired
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        Your session has expired. Please login again to continue.
+                    </div>
+
+                    <!-- Modal Actions -->
+                    <div class="modal-footer">
+                        <a href="/login">
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-btn fa-sign-in"></i> Go To Login
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

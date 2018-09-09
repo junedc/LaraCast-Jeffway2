@@ -1,0 +1,15 @@
+                    <template v-if="active == 0">
+                        @include('spark::campaigns.wizard.initialize')
+                    </template>
+                    <template v-if="active == 1">
+                        @include('spark::campaigns.wizard.brief')
+                    </template>
+                    <template v-if="active == 2">
+                        @include('spark::campaigns.wizard.influencers')
+                    </template>
+                    <template v-if="active == 3">
+                        @include('spark::campaigns.wizard.details')
+                    </template>
+                    <template v-if="active == 4">
+                        @include('spark::campaigns.wizard.confirm')
+                    </template>

@@ -8,3 +8,4 @@ Route::get('/', function () {
 
 Route::get('projects/create', 'ProjectsController@create');
 Route::post('projects', 'ProjectsController@store');
+Route::get('projects', 'ProjectsController@index');

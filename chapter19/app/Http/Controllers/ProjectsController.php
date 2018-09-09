@@ -13,8 +13,14 @@ class ProjectsController extends Controller
     public function create()
     {
         return view('projects.create', [
-            'projects' => Project::all() 
+            'projects' => Project::all()
         ]);
+    }
+
+
+    public function index()
+    {
+        return Proect::all();
     }
 
     /**
@@ -25,12 +31,12 @@ class ProjectsController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             "description" => 'required'
-        ]); 
+        ]);
 
         Project::forceCreate([
             'name' => request('name'),
             'description' => request('description')
-        ]); 
+        ]);
 
         return ['message' => 'Project Created!'];
     }

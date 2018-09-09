@@ -18,14 +18,23 @@
 
         <tab name="About Us" :selected="true">
             <h1>Here is the content of about us</h1>
+
+
+            <button @click="next">Next</button>
         </tab>
 
         <tab name="About Me">
             <h1>Here is the content of about Me</h1>
+
+            <button @click="previous">Previous</button>
+            <button @click="next">Next</button>
+
         </tab>
 
         <tab name="About Good">
             <h1>Here is the content of about Good</h1>
+            <button @click="previous">Previous</button>
+            <button @click="next">Next</button>
         </tab>
 
     </tabs>
@@ -103,12 +112,21 @@
 
         mounted() {
             this.isActive = this.selected;
-        }
+        },
+
     });
 
     new Vue({
         el: '#app',
-        data: {}
+        data: {},
+        methods: {
+            next() {
+
+            },
+            previous() {
+
+            },
+        }
     });
 
 
